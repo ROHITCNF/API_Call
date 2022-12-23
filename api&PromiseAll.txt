@@ -1,0 +1,49 @@
+// api call  and doing promise all 
+
+//gobal declaration
+const URL1 = "https://catfact.ninja/fact";
+const URL2 = "https://api.publicapis.org/entries";
+const URL3 = "https://api.coindesk.com/v1/bpi/currentprice.json";
+
+
+function status(response) {
+ 
+if (!response.ok) {
+ 
+return Promise.reject(new Error(response.statusText));
+ 
+} else {
+ 
+return Promise.resolve(response.json())
+ 
+}
+ 
+}
+
+const promise1 =  fetch (URL1)
+.then(status)
+.catch((error) =>{
+  console.log(error);
+ });
+ 
+console.log("logging Promise 1",promise1);
+
+const promise2 = fetch (URL2)
+.then(status)
+.catch((error) =>{
+  console.log(error);
+ });
+console.log("logging Promise 2",promise2);
+
+const promise3 = fetch (URL3)
+.then(status)
+.catch((error) =>{
+  console.log(error);
+ });
+ console.log("logging Promise 3",promise3);
+
+Promise.all([promise1,promise2,promise3]).then( (values) =>{
+ console.log(values);
+})
+
+
